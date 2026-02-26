@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Booking System</title>
+</head>
+<body style="font-family:Arial;margin:0;background:#f4f4f4;">
+
+<!-- Header -->
+<header style="background:#2c3e50;color:white;padding:15px;text-align:center;">
+<h1>Luxury Hotel Booking</h1>
+</header>
+
+<!-- Navigation -->
+<nav style="background:#34495e;text-align:center;padding:10px;">
+<button onclick="showPage('home')" style="padding:8px 15px;margin:5px;border:none;cursor:pointer;">Home</button>
+<button onclick="showPage('booking')" style="padding:8px 15px;margin:5px;border:none;cursor:pointer;">Booking</button>
+<button onclick="showPage('contact')" style="padding:8px 15px;margin:5px;border:none;cursor:pointer;">Contact</button>
+</nav>
+
+<!-- ================= HOME PAGE ================= -->
+<section id="home" class="active" style="display:block;padding:20px;">
+  <div style="width:80%;margin:auto;">
+    <h2 style="text-align:center;">Welcome to Our Hotel</h2>
+    <p style="text-align:center;">We provide luxury rooms at affordable prices.</p>
+
+    <h3 style="margin-top:30px;">Our Rooms</h3>
+
+    <!-- Single Room -->
+    <div style="background:#fff;padding:10px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+      <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a" alt="Single Room" style="width:100%;height:200px;object-fit:cover;border-radius:8px;">
+      <h4 style="margin:10px 0 5px 0;">Single Room</h4>
+      <p style="margin:0 0 10px 0;">Price: $50 per night</p>
+      <button onclick="showPage('booking'); document.getElementById('roomType').value='Single Room';" style="background:green;color:white;border:none;padding:6px 12px;cursor:pointer;border-radius:5px;">Book Now</button>
+    </div>
+
+    <!-- Double Room -->
+    <div style="background:#fff;padding:10px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" alt="Double Room" style="width:100%;height:200px;object-fit:cover;border-radius:8px;">
+      <h4 style="margin:10px 0 5px 0;">Double Room</h4>
+      <p style="margin:0 0 10px 0;">Price: $90 per night</p>
+      <button onclick="showPage('booking'); document.getElementById('roomType').value='Double Room';" style="background:green;color:white;border:none;padding:6px 12px;cursor:pointer;border-radius:5px;">Book Now</button>
+    </div>
+
+    <!-- Suite -->
+    <div style="background:#fff;padding:10px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Suite" style="width:100%;height:200px;object-fit:cover;border-radius:8px;">
+      <h4 style="margin:10px 0 5px 0;">Suite</h4>
+      <p style="margin:0 0 10px 0;">Price: $150 per night</p>
+      <button onclick="showPage('booking'); document.getElementById('roomType').value='Suite';" style="background:green;color:white;border:none;padding:6px 12px;cursor:pointer;border-radius:5px;">Book Now</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= BOOKING PAGE ================= -->
+<section id="booking" style="display:none;padding:20px;">
+  <div style="width:80%;margin:auto;background:#fff;padding:20px;border-radius:8px;">
+    <h2>Book Your Room</h2>
+    <form onsubmit="return bookHotel()">
+      <label>Full Name</label><br>
+      <input type="text" id="name" style="width:100%;padding:8px;margin:8px 0;"><br>
+
+      <label>Email</label><br>
+      <input type="email" id="email" style="width:100%;padding:8px;margin:8px 0;"><br>
+
+      <label>Phone</label><br>
+      <input type="tel" id="phone" style="width:100%;padding:8px;margin:8px 0;"><br>
+
+      <label>Room Type</label><br>
+      <select id="roomType" style="width:100%;padding:8px;margin:8px 0;">
+        <option value="">Select Room</option>
+        <option>Single Room</option>
+        <option>Double Room</option>
+        <option>Suite</option>
+      </select><br>
+
+      <label>Check-in Date</label><br>
+      <input type="date" id="checkin" style="width:100%;padding:8px;margin:8px 0;"><br>
+
+      <label>Check-out Date</label><br>
+      <input type="date" id="checkout" style="width:100%;padding:8px;margin:8px 0;"><br>
+
+      <button type="submit" style="background:green;color:white;border:none;padding:10px 15px;cursor:pointer;border-radius:5px;">Confirm Booking</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= CONTACT PAGE ================= -->
+<section id="contact" style="display:none;padding:20px;">
+  <div style="width:80%;margin:auto;background:#fff;padding:20px;border-radius:8px;">
+    <h2>Contact Us</h2>
+    <p>Email: info@luxuryhotel.com</p>
+    <p>Phone: +1 234 567 890</p>
+    <p>Address: Main Street, City Center</p>
+  </div>
+</section>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+// Show selected page
+function showPage(pageId){
+  let sections = document.querySelectorAll("section");
+  sections.forEach(sec => sec.style.display = "none");
+  document.getElementById(pageId).style.display = "block";
+}
+
+// Room prices
+const roomPrices = {
+  "Single Room":50,
+  "Double Room":90,
+  "Suite":150
+};
+
+// Booking function
+function bookHotel(){
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let roomType = document.getElementById("roomType").value;
+  let checkin = document.getElementById("checkin").value;
+  let checkout = document.getElementById("checkout").value;
+
+  if(name==="" || email==="" || phone==="" || roomType==="" || checkin==="" || checkout===""){
+    alert("Please fill all fields!");
+    return false;
+  }
+
+  let emailPattern=/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if(!email.match(emailPattern)){ alert("Enter valid email!"); return false; }
+
+  let phonePattern=/^[0-9]{10,15}$/;
+  if(!phone.match(phonePattern)){ alert("Enter valid phone!"); return false; }
+
+  let checkinDate = new Date(checkin);
+  let checkoutDate = new Date(checkout);
+
+  if(checkoutDate <= checkinDate){ alert("Check-out date must be after check-in date!"); return false; }
+
+  let days = (checkoutDate - checkinDate)/(1000*3600*24);
+  let totalAmount = days * roomPrices[roomType];
+
+  alert("Booking Confirmed!\n\nName: "+name+"\nRoom: "+roomType+"\nDays: "+days+"\nTotal Amount: $"+totalAmount);
+
+  document.querySelector("form").reset();
+  return false;
+}
+</script>
+
+</body>
+</html>
